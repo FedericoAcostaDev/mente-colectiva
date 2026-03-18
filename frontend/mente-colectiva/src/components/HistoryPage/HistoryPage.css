@@ -1,0 +1,250 @@
+/* HistoryPage.css */
+
+.history-page-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+/* Ensure proper box-sizing */
+.history-page-wrapper * {
+  box-sizing: border-box;
+}
+
+/* Main container wrapper */
+.history-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1.5rem;
+}
+
+/* Content box */
+.history-content-box {
+  width: 100%;
+  max-width: 1152px;
+  background: rgba(26, 26, 46, 0.95);
+  border: 2px solid rgba(147, 51, 234, 0.4);
+  border-radius: 1.75rem;
+  padding: 3.5rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Back button */
+.history-back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #a0a0b8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-bottom: .5rem;
+}
+
+.history-back-button:hover {
+  color: #c084fc;
+}
+
+.history-back-button svg {
+  transition: transform 0.3s ease;
+}
+
+.history-back-button:hover svg {
+  transform: translateX(-0.35rem);
+}
+
+/* Header section */
+.history-header {
+  margin-bottom: 1rem;
+}
+
+.history-title {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #9333ea, #c084fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.75rem;
+}
+
+.history-subtitle {
+  color: #a0a0b8;
+  font-size: 1.05rem;
+}
+
+/* Cards container */
+.history-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Individual card */
+.history-card {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95));
+  border: 1px solid rgba(147, 51, 234, 0.35);
+  border-radius: 1.25rem;
+  padding: 2.5rem;
+  transition: all 0.35s ease;
+}
+
+.history-card:hover {
+  border-color: #9333ea;
+  box-shadow: 0 25px 35px rgba(147, 51, 234, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Room name */
+.history-room-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2.5rem;
+  transition: color 0.3s ease;
+}
+
+.history-card:hover .history-room-name {
+  color: #c084fc;
+}
+
+/* Bottom row */
+.history-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+}
+
+/* Info boxes */
+.history-info-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(147, 51, 234, 0.08);
+  backdrop-filter: blur(10px);
+  padding: 0.9rem 1.4rem;
+  border-radius: 0.9rem;
+  border: 1px solid rgba(147, 51, 234, 0.35);
+}
+
+.history-info-content {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.history-info-label {
+  font-size: 0.875rem;
+  color: #a0a0b8;
+}
+
+.history-info-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.history-info-value.date {
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* Icons */
+.history-icon-user {
+  color: #c084fc;
+}
+
+.history-icon-calendar {
+  color: #7c3aed;
+}
+
+/* Open button */
+.history-open-button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 2.25rem;
+  background: linear-gradient(135deg, #9333ea, #7c3aed);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.9rem;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 12px 20px rgba(147, 51, 234, 0.45);
+  transition: all 0.3s ease;
+}
+
+.history-open-button:hover {
+  background: linear-gradient(135deg, #a855f7, #9333ea);
+  box-shadow: 0 18px 28px rgba(147, 51, 234, 0.6);
+  transform: scale(1.05);
+}
+
+.history-open-button:active {
+  transform: scale(0.96);
+}
+
+/* Download buttons */
+.history-download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background: rgba(147, 51, 234, 0.15);
+  color: #a0a0b8;
+  border: 1px solid rgba(147, 51, 234, 0.3);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.history-download-button:hover {
+  background: rgba(147, 51, 234, 0.25);
+  color: #c084fc;
+  border-color: #9333ea;
+  transform: scale(1.05);
+}
+
+.history-download-button:active {
+  transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .history-container {
+    padding: 2.5rem 1rem;
+  }
+
+  .history-content-box {
+    padding: 2.25rem;
+  }
+
+  .history-title {
+    font-size: 2.25rem;
+  }
+
+  .history-room-name {
+    font-size: 1.6rem;
+  }
+
+  .history-bottom-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-open-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
