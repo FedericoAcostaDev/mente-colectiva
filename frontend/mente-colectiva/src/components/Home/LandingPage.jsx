@@ -217,12 +217,11 @@ export default function LandingPage() {
           </div>
 
           <h1 className="hero-title" style={{ animation: 'slide-up 0.8s ease-out 0.2s both' }}>
-            Collaborate, Create,{' '}
-            <span className="gradient-text">Connect</span>
+            <mark className="hero-highlight">Collaborate, Create, Connect</mark>
           </h1>
 
           <p className="hero-description" style={{ animation: 'slide-up 0.8s ease-out 0.3s both' }}>
-            The collaborative whiteboard that empowers creativity. Real-time sync, beautiful tools, and a seamless experience for teams that dream big.
+            <mark className="hero-highlight">The collaborative whiteboard that empowers creativity. Real-time sync, beautiful tools, and a seamless experience for teams that dream big.</mark>
           </p>
 
           <div className="hero-cta" style={{ animation: 'slide-up 0.8s ease-out 0.4s both' }}>
@@ -346,43 +345,6 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section id="team" className="team-section">
-        <ShimmerLine />
-        <div className="team-container">
-          <h2>Creative Minds Behind Mente Colectiva</h2>
-          <p>A passion project by developers who believe in real-time collaboration</p>
-
-          <div className="team-grid">
-            {[
-              { name: 'Aman Mishra', role: 'Founder & Lead Dev', image: '/team/aman.jpg', initials: 'AM', color: 'primary' },
-              { name: 'Ayush Pratap Singh', role: 'Full Stack Developer', image: '/team/ayush.jpg', initials: 'AS', color: 'accent' },
-              { name: 'Suraj Kumar Gupta', role: 'Backend Engineer', image: '/team/suraj.jpg', initials: 'SG', color: 'secondary' },
-            ].map((member, idx) => (
-              <div key={idx} className="team-card">
-                <div className="team-avatar-wrapper">
-                  <img
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    className="team-avatar"
-                    onError={(e) => {
-                      e.currentTarget.style.display = 'none';
-                      const fallback = e.currentTarget.nextElementSibling;
-                      if (fallback) fallback.style.display = 'flex';
-                    }}
-                  />
-                  <div className={`team-avatar-fallback ${member.color}`}>
-                    {member.initials}
-                  </div>
-                </div>
-                <h3>{member.name}</h3>
-                <p>{member.role}</p>
-              </div>
-            ))}
           </div>
         </div>
       </section>
