@@ -512,158 +512,129 @@ const Whiteboard = ({ roomId, initialBoard }) => {
     ];
 
 
+    const sketchToolBtn = (isActive) =>
+        `rounded border-2 transition-all duration-150 flex items-center justify-center gap-2 group relative m-1 ${
+            isActive
+                ? 'bg-[var(--ink)] text-[var(--paper)] shadow-[2px_2px_0_var(--sketch-border)] border-[var(--sketch-border)]'
+                : 'bg-[var(--paper)] text-[var(--ink-muted)] border-[var(--sketch-border)] hover:bg-[var(--paper-dark)] hover:text-[var(--ink)]'
+        }`;
+
     return (
-        <div className="flex flex-col md:flex-row h-full p-2">
-            <div className="flex md:flex-col gap-2 p-5 bg-slate-900 border-r border-slate-800 z-10 overflow-x-auto no-scrollbar">
+        <div className="flex flex-col md:flex-row h-full" style={{ background: 'var(--paper)', fontFamily: "'Kalam', cursive" }}>
+            <div className="flex md:flex-col gap-1 p-2 overflow-x-auto no-scrollbar"
+                style={{ background: 'var(--paper-dark)', borderRight: '2px solid var(--sketch-border)', minWidth: '56px' }}>
                 {tools.map((tool) => (
                     <button
                         key={tool.id}
                         onClick={() => setActiveTool(tool.id)}
-                        className={`rounded-lg transition-all duration-200 flex items-center justify-center gap-2 group relative m-5 ${
-                            activeTool === tool.id
-                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40'
-                                : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-100'
-                        }`}
-                        style={{ padding: '12px 10px' }}
+                        className={sketchToolBtn(activeTool === tool.id)}
+                        style={{ padding: '10px 8px' }}
                         title={tool.label}
                     >
-                        <tool.icon size={20} />
-                        <span className="hidden lg:block text-xs font-medium px-5">
+                        <tool.icon size={18} />
+                        <span className="hidden lg:block text-xs font-medium" style={{ fontFamily: "'Kalam', cursive", paddingLeft: '4px' }}>
                             {tool.label}
                         </span>
                     </button>
                 ))}
 
-                <div className="h-px bg-slate-800 my-2 hidden md:block px-2" />
+                <div style={{ height: '1.5px', background: 'var(--sketch-border)', margin: '6px 0' }} className="hidden md:block" />
 
-                <button
-                    onClick={undo}
-                    disabled={!canUndo}
-                    className={`p-3 rounded-lg flex items-center justify-center gap-2 ${
+                <button onClick={undo} disabled={!canUndo}
+                    className={`p-2 rounded border-2 flex items-center justify-center ${
                         canUndo
-                            ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-100'
-                            : 'bg-slate-800/50 text-slate-700 cursor-not-allowed'
-                    }`}
-                    title="Undo"
-                >
-                    <Undo2 size={20} />
+                            ? 'bg-[var(--paper)] text-[var(--ink-muted)] border-[var(--sketch-border)] hover:bg-[var(--paper-dark)]'
+                            : 'bg-[var(--paper-darker)] text-[var(--ink-faint)] border-[var(--sketch-border)] cursor-not-allowed opacity-50'
+                    }`} title="Undo">
+                    <Undo2 size={18} />
                 </button>
 
-                <button
-                    onClick={redo}
-                    disabled={!canRedo}
-                    className={`p-3 rounded-lg flex items-center justify-center gap-2 ${
+                <button onClick={redo} disabled={!canRedo}
+                    className={`p-2 rounded border-2 flex items-center justify-center ${
                         canRedo
-                            ? 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-slate-100'
-                            : 'bg-slate-800/50 text-slate-700 cursor-not-allowed'
-                    }`}
-                    title="Redo"
-                >
-                    <Redo2 size={20} />
+                            ? 'bg-[var(--paper)] text-[var(--ink-muted)] border-[var(--sketch-border)] hover:bg-[var(--paper-dark)]'
+                            : 'bg-[var(--paper-darker)] text-[var(--ink-faint)] border-[var(--sketch-border)] cursor-not-allowed opacity-50'
+                    }`} title="Redo">
+                    <Redo2 size={18} />
                 </button>
             </div>
 
-            <div className="flex-1 relative bg-slate-950 overflow-hidden cursor-crosshair p-2">
+            <div className="flex-1 relative overflow-hidden cursor-crosshair" style={{ background: '#fff' }}>
                 <canvas ref={canvasRef} className="p-2" />
 
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-4 px-4 py-2 bg-slate-900/90 backdrop-blur-sm border border-slate-800 rounded-2xl shadow-2xl z-20 max-w-[95vw] overflow-x-auto p-4" style={{ padding: '12px 10px' }}>
-                    <div className="flex flex-col gap-1 min-w-fit p-2">
-                        <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
-                            Stroke
-                        </label>
-                        <input
-                            type="color"
-                            value={strokeColor}
-                            onChange={(e) => setStrokeColor(e.target.value)}
-                            className="w-10 h-6 bg-transparent border-none cursor-pointer rounded p-1"
-                        />
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 max-w-[95vw] overflow-x-auto"
+                    style={{
+                        background: 'var(--paper-dark)',
+                        border: '2px solid var(--sketch-border)',
+                        borderRadius: '3px',
+                        boxShadow: '3px 3px 0 var(--sketch-border)',
+                        padding: '6px 10px',
+                    }}>
+                    <div className="flex flex-col gap-1 min-w-fit">
+                        <label style={{ fontFamily: "'Kalam', cursive", fontSize: '0.65rem', fontWeight: '700', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Stroke</label>
+                        <input type="color" value={strokeColor} onChange={(e) => setStrokeColor(e.target.value)}
+                            className="w-9 h-6 cursor-pointer rounded" style={{ border: '1.5px solid var(--sketch-border)' }} />
                     </div>
 
-                    <div className="flex flex-col gap-1 min-w-fit p-2">
-                        <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
-                            Fill
-                        </label>
-                        <div className="flex items-center gap-2 p-1">
-                            <input
-                                type="color"
+                    <div className="flex flex-col gap-1 min-w-fit">
+                        <label style={{ fontFamily: "'Kalam', cursive", fontSize: '0.65rem', fontWeight: '700', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Fill</label>
+                        <div className="flex items-center gap-1">
+                            <input type="color"
                                 value={fillColor === 'transparent' ? '#000000' : fillColor}
                                 onChange={(e) => setFillColor(e.target.value)}
                                 disabled={fillColor === 'transparent'}
-                                className={`w-10 h-6 bg-transparent border-none cursor-pointer rounded p-1 ${
-                                    fillColor === 'transparent' ? 'opacity-30' : ''
-                                }`}
-                            />
-                            <button
-                                onClick={() =>
-                                    setFillColor(fillColor === 'transparent' ? '#3b82f6' : 'transparent')
-                                }
-                                className={`px-2 py-1 text-[9px] rounded-md font-bold uppercase transition-colors ${
-                                    fillColor === 'transparent'
-                                        ? 'bg-slate-700 text-slate-300'
-                                        : 'bg-blue-600 text-white'
-                                }`}
-                            >
-                                {fillColor === 'transparent' ? 'None' : 'Solid'}
+                                className={`w-9 h-6 cursor-pointer rounded ${fillColor === 'transparent' ? 'opacity-30' : ''}`}
+                                style={{ border: '1.5px solid var(--sketch-border)' }} />
+                            <button onClick={() => setFillColor(fillColor === 'transparent' ? '#3b82f6' : 'transparent')}
+                                style={{
+                                    fontFamily: "'Kalam', cursive", fontSize: '0.65rem', fontWeight: '700',
+                                    padding: '2px 6px', border: '1.5px solid var(--sketch-border)', borderRadius: '2px',
+                                    background: fillColor === 'transparent' ? 'var(--paper)' : 'var(--ink)',
+                                    color: fillColor === 'transparent' ? 'var(--ink-muted)' : 'var(--paper)', cursor: 'pointer',
+                                }}>
+                                {fillColor === 'transparent' ? 'None' : 'Fill'}
                             </button>
                         </div>
                     </div>
 
-                    <div className="w-px h-8 bg-slate-800 shrink-0 px-1" />
+                    <div style={{ width: '1.5px', height: '28px', background: 'var(--sketch-border)', flexShrink: 0 }} />
 
-                    <div className="flex flex-col gap-1 min-w-fit p-2">
-                        <label className="text-[10px] uppercase tracking-wider text-slate-500 font-bold px-1">
-                            Width: {strokeWidth}
-                        </label>
-                        <input
-                            type="range"
-                            min="1"
-                            max="20"
-                            step="1"
-                            value={strokeWidth}
+                    <div className="flex flex-col gap-1 min-w-fit">
+                        <label style={{ fontFamily: "'Kalam', cursive", fontSize: '0.65rem', fontWeight: '700', color: 'var(--ink-muted)', textTransform: 'uppercase' }}>Width: {strokeWidth}</label>
+                        <input type="range" min="1" max="20" step="1" value={strokeWidth}
                             onChange={(e) => setStrokeWidth(parseInt(e.target.value))}
-                            className="w-20 md:w-24 accent-blue-600 p-1"
-                        />
+                            className="w-20 md:w-24" style={{ accentColor: 'var(--ink)' }} />
                     </div>
 
-                    <div className="w-px h-8 bg-slate-800 shrink-0 px-1" />
+                    <div style={{ width: '1.5px', height: '28px', background: 'var(--sketch-border)', flexShrink: 0 }} />
 
-                    <div className="flex items-center gap-1 shrink-0 p-2">
-                        <button
-                            onClick={duplicateSelected}
-                            className="p-2 hover:bg-slate-800 rounded text-slate-400 hover:text-slate-100"
-                            title="Duplicate"
-                        >
-                            <Copy size={18} />
+                    <div className="flex items-center gap-1 shrink-0">
+                        <button onClick={duplicateSelected} title="Duplicate" className="p-1.5 rounded"
+                            style={{ border: '1.5px solid var(--sketch-border)', background: 'var(--paper)', color: 'var(--ink-muted)', cursor: 'pointer' }}>
+                            <Copy size={16} />
                         </button>
-
-                        <button
-                            onClick={groupSelected}
-                            className="p-2 hover:bg-slate-800 rounded text-slate-400 hover:text-slate-100"
-                            title="Group Selected"
-                        >
-                            <Layers size={18} />
+                        <button onClick={groupSelected} title="Group" className="p-1.5 rounded"
+                            style={{ border: '1.5px solid var(--sketch-border)', background: 'var(--paper)', color: 'var(--ink-muted)', cursor: 'pointer' }}>
+                            <Layers size={16} />
                         </button>
-
-                        <button
-                            onClick={ungroupSelected}
-                            className="p-2 hover:bg-slate-800 rounded text-slate-400 hover:text-slate-100"
-                            title="Ungroup Selected"
-                        >
-                            <Ungroup size={18} />
+                        <button onClick={ungroupSelected} title="Ungroup" className="p-1.5 rounded"
+                            style={{ border: '1.5px solid var(--sketch-border)', background: 'var(--paper)', color: 'var(--ink-muted)', cursor: 'pointer' }}>
+                            <Ungroup size={16} />
                         </button>
-
-                        <button
-                            onClick={deleteSelected}
-                            className="p-2 hover:bg-red-900/30 rounded text-slate-400 hover:text-red-400"
-                            title="Delete"
-                        >
-                            <Trash2 size={18} />
+                        <button onClick={deleteSelected} title="Delete" className="p-1.5 rounded"
+                            style={{ border: '1.5px solid var(--sketch-red)', background: 'var(--paper)', color: 'var(--ink-muted)', cursor: 'pointer' }}>
+                            <Trash2 size={16} />
                         </button>
                     </div>
                 </div>
 
-                <div className="absolute bottom-4 left-4 p-3 bg-slate-900/50 rounded-lg text-slate-500 text-[10px] pointer-events-none select-none">
-                    Click & Drag to Draw • Double Click Text to Edit • Use Toolbar for Colors
+                <div className="absolute bottom-3 left-3 pointer-events-none select-none"
+                    style={{
+                        fontFamily: "'Kalam', cursive", fontSize: '0.7rem', color: 'var(--ink-faint)',
+                        background: 'var(--paper-dark)', border: '1.5px dashed var(--sketch-border)',
+                        borderRadius: '3px', padding: '4px 10px',
+                    }}>
+                    Click & Drag to Draw • Double Click Text to Edit
                 </div>
             </div>
         </div>

@@ -2,66 +2,84 @@
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "radial-gradient(circle at top, #0f172a, #020817)",
+    background: "var(--paper)",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    fontFamily: "'Kalam', cursive",
   },
   heading: {
-    color: "#f8fafc",
-    fontSize: "38px",
+    fontFamily: "'Caveat', cursive",
+    color: "var(--ink)",
+    fontSize: "2.6rem",
+    fontWeight: "700",
     marginBottom: "40px",
+    textDecoration: "underline",
+    textDecorationStyle: "wavy",
+    textUnderlineOffset: "5px",
   },
   container: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: "70px",
+    gap: "40px",
   },
   box: {
-    background: "#020817",
-    padding: "50px",
-    borderRadius: "22px",
-    width: "320px",
+    background: "var(--paper-dark)",
+    padding: "40px",
+    borderRadius: "3px",
+    width: "300px",
     textAlign: "center",
-    boxShadow: "0 30px 80px rgba(0,0,0,0.7)",
-    transition: "0.3s",
+    border: "2px solid var(--sketch-border)",
+    boxShadow: "5px 5px 0 var(--sketch-border)",
+    transition: "transform 0.15s, box-shadow 0.15s",
   },
   glowLeft: {
-    boxShadow: "0 0 40px rgba(56,189,248,0.3)",
+    borderLeft: "4px solid var(--sketch-border)",
   },
   glowRight: {
-    boxShadow: "0 0 40px rgba(167,139,250,0.3)",
+    borderRight: "4px solid var(--sketch-border)",
   },
   input: {
     width: "100%",
-    padding: "14px",
-    margin: "20px 0",
-    borderRadius: "10px",
-    border: "2px solid #334155",
-    background: "#020817",
-    color: "#f8fafc",
+    padding: "10px 14px",
+    margin: "16px 0",
+    borderRadius: "3px",
+    border: "2px solid var(--sketch-border)",
+    background: "var(--paper)",
+    color: "var(--ink)",
+    fontFamily: "'Kalam', cursive",
+    fontSize: "1rem",
+    outline: "none",
   },
   primaryBtn: {
     width: "100%",
-    padding: "14px",
-    borderRadius: "10px",
-    border: "none",
-    background: "linear-gradient(135deg,#38bdf8,#6366f1)",
-    color: "white",
-    fontWeight: "600",
+    padding: "12px",
+    borderRadius: "3px",
+    border: "2px solid var(--sketch-border)",
+    background: "var(--ink)",
+    color: "var(--paper)",
+    fontFamily: "'Kalam', cursive",
+    fontWeight: "700",
+    fontSize: "1rem",
     cursor: "pointer",
+    boxShadow: "3px 3px 0 var(--sketch-border)",
+    transition: "transform 0.1s, box-shadow 0.1s",
   },
   secondaryBtn: {
     width: "100%",
-    padding: "14px",
-    borderRadius: "10px",
-    border: "none",
-    background: "linear-gradient(135deg,#a78bfa,#ec4899)",
-    color: "white",
-    fontWeight: "600",
+    padding: "12px",
+    borderRadius: "3px",
+    border: "2px solid var(--sketch-border)",
+    background: "var(--paper-darker)",
+    color: "var(--ink)",
+    fontFamily: "'Kalam', cursive",
+    fontWeight: "700",
+    fontSize: "1rem",
     cursor: "pointer",
+    boxShadow: "3px 3px 0 var(--sketch-border)",
+    transition: "transform 0.1s, box-shadow 0.1s",
   },
 };
 import { useState, useEffect } from "react";
@@ -135,23 +153,26 @@ function RoomOptions() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(0,0,0,0.6)",
-        color: "#fff",
-        fontSize: "24px",
+        background: "rgba(245,240,232,0.85)",
+        color: "var(--ink)",
+        fontFamily: "'Caveat', cursive",
+        fontSize: "1.8rem",
+        fontWeight: "700",
         opacity: joining ? 1 : 0,
         pointerEvents: joining ? "auto" : "none",
         transition: "opacity 0.3s ease-in-out",
-        zIndex: 10
+        zIndex: 10,
+        border: "2px dashed var(--sketch-border)",
       }}
     >
-      Joining room...
+      ✏️ Joining room...
     </div> : 
     <div style={styles.page}>
-      <h1 style={styles.heading}>Start a Session 🚀</h1>
+      <h1 style={styles.heading}>Start a Session ✏️</h1>
 
       <div style={styles.container}>
         <div style={{ ...styles.box, ...styles.glowLeft }}>
-          <h2>Create Room</h2>
+          <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: "1.5rem", fontWeight: "700", color: "var(--ink)", marginBottom: "8px" }}>Create Room</h2>
           <input
             style={styles.input}
             placeholder="Room Name"
@@ -164,7 +185,7 @@ function RoomOptions() {
         </div>
 
         <div style={{ ...styles.box, ...styles.glowRight }}>
-          <h2>Join Room</h2>
+          <h2 style={{ fontFamily: "'Caveat', cursive", fontSize: "1.5rem", fontWeight: "700", color: "var(--ink)", marginBottom: "8px" }}>Join Room</h2>
           <input
             style={styles.input}
             placeholder="Room ID"

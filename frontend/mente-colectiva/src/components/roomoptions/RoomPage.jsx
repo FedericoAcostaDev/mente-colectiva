@@ -168,7 +168,7 @@ function RoomPage() {
           </div>
 
           <div style={styles.headerActions}>
-            <p>Host Name: {hostName}</p>
+            <p style={{ fontFamily: "'Kalam', cursive", fontSize: "0.85rem", color: "var(--ink-muted)" }}>Host: {hostName}</p>
             <button
               style={micOn ? styles.voiceBtn : styles.voiceBtnOff}
               onClick={() => setMicOn(!micOn)}
@@ -236,7 +236,7 @@ function MicIcon({ isOn }) {
 function Members({ members, hostName, handlePermission, currentUser, permittedMember }) {
   if (!members || members.length === 0) {
     return (
-      <p style={{ opacity: 0.6, fontSize: "13px", padding: "10px" }}>
+      <p style={{ opacity: 0.7, fontSize: "0.85rem", padding: "10px", fontFamily: "'Kalam', cursive", fontStyle: "italic", color: "var(--ink-muted)" }}>
         No members in room yet...
       </p>
     );
@@ -383,51 +383,65 @@ function SummaryGeneration({ roomId, setSummary, summary }) {
   }
 
   return (
-    <div style={{ padding: "20px", textAlign: "center", opacity: 0.9 }}>
+    <div style={{ padding: "16px", textAlign: "center", fontFamily: "'Kalam', cursive" }}>
 
-      {/* ⭐ INLINE STYLE TAG FOR PERFECT FORMATTING */}
       <style>{`
         .summary-output pre {
           white-space: pre-wrap;
-          background: #0d0d0d;
-          color: #e8e8e8;
-          padding: 16px;
-          border-radius: 8px;
-          font-family: "Fira Code", "Consolas", "Menlo", monospace;
-          font-size: 14px;
+          background: var(--paper-dark);
+          color: var(--ink);
+          padding: 14px;
+          border-radius: 3px;
+          font-family: "Kalam", cursive;
+          font-size: 0.875rem;
           line-height: 1.55;
           text-align: left;
-          border: 1px solid #333;
-          box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+          border: 1.5px dashed var(--sketch-border);
           overflow-x: auto;
         }
       `}</style>
 
       <div className="flex justify-around items-center">
         <button
-          className="text-white border border-white hover:bg-white hover:text-black transition-all shadow-md shadow-white rounded"
-          style={{ padding: "10px 20px" }}
+          style={{
+            fontFamily: "'Kalam', cursive",
+            fontWeight: "700",
+            padding: "8px 18px",
+            background: "var(--ink)",
+            color: "var(--paper)",
+            border: "2px solid var(--sketch-border)",
+            borderRadius: "3px",
+            boxShadow: "3px 3px 0 var(--sketch-border)",
+            cursor: "pointer",
+            fontSize: "0.9rem",
+            transition: "transform 0.1s",
+          }}
           onClick={handleOnClick}
           disabled={loading}
         >
-          {loading ? "Generating..." : "Generate Summary!"}
+          {loading ? "Generating..." : "Generate Summary"}
         </button>
-        {
-          summary &&
-          <button onClick={() => navigator.clipboard.writeText(summary)} className="text-2xl rounded hover:bg-white relative after:content-['Copy Summary'] after:absolute after:bottom-50 after:w-50 after:h-50 after:bg-amber-300 " style={{ padding: "5px 10px" }}>
+        {summary &&
+          <button onClick={() => navigator.clipboard.writeText(summary)}
+            style={{
+              fontSize: "1.2rem",
+              padding: "5px 10px",
+              border: "1.5px solid var(--sketch-border)",
+              borderRadius: "3px",
+              background: "var(--paper)",
+              cursor: "pointer",
+              boxShadow: "2px 2px 0 var(--sketch-border)",
+            }}
+            title="Copy Summary">
             📋
           </button>
         }
-
       </div>
-      {
-        summary && (
-          <div className="summary-output" style={{ marginTop: "20px" }}>
-            <div dangerouslySetInnerHTML={{ __html: summary }} />
-          </div>
-        )
-      }
-
+      {summary && (
+        <div className="summary-output" style={{ marginTop: "16px" }}>
+          <div dangerouslySetInnerHTML={{ __html: summary }} />
+        </div>
+      )}
     </div>
   );
 }
@@ -437,136 +451,159 @@ function SummaryGeneration({ roomId, setSummary, summary }) {
 const styles = {
   page: {
     minHeight: "100vh",
-    background: "#020817",
-    color: "#f8fafc",
+    background: "var(--paper)",
+    color: "var(--ink)",
     display: "flex",
+    fontFamily: "'Kalam', cursive",
   },
 
   boardArea: {
     flex: 1,
     margin: "10px",
-    border: "1.5px solid rgba(255,255,255,0.25)",
-    borderRadius: "14px",
+    border: "2px solid var(--sketch-border)",
+    borderRadius: "3px",
     display: "flex",
     flexDirection: "column",
     overflow: "hidden",
+    boxShadow: "4px 4px 0 var(--sketch-border)",
   },
 
   roomHeader: {
     display: "flex",
     justifyContent: "space-between",
-    padding: "10px 14px",
-    borderBottom: "1px solid rgba(255,255,255,0.2)",
+    padding: "8px 12px",
+    borderBottom: "2px solid var(--sketch-border)",
     flexShrink: 0,
+    background: "var(--paper-dark)",
+    alignItems: "center",
   },
 
   roomIdBox: { display: "flex", alignItems: "center", gap: "6px" },
-  roomText: { fontWeight: "600", fontSize: "14px" },
+  roomText: { fontFamily: "'Kalam', cursive", fontWeight: "700", fontSize: "0.9rem", color: "var(--ink)" },
 
   copyIcon: {
-    border: "1px solid rgba(255,255,255,0.4)",
-    background: "rgba(255,255,255,0.05)",
-    borderRadius: "6px",
-    padding: "3px 6px",
+    border: "1.5px solid var(--sketch-border)",
+    background: "var(--paper)",
+    borderRadius: "3px",
+    padding: "3px 7px",
     cursor: "pointer",
-    transition: "all 0.2s",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
+    transition: "transform 0.1s",
+    fontSize: "0.85rem",
   },
 
-  headerActions: { display: "flex", gap: "8px" },
+  headerActions: { display: "flex", gap: "8px", alignItems: "center" },
 
   voiceBtn: {
-    border: "1px solid rgba(255,255,255,0.4)",
-    background: "rgba(255,255,255,0.1)",
-    borderRadius: "6px",
-    padding: "6px 12px",
+    border: "1.5px solid var(--sketch-border)",
+    background: "var(--paper)",
+    borderRadius: "3px",
+    padding: "5px 10px",
     cursor: "pointer",
-    transition: "all 0.2s",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
+    transition: "transform 0.1s",
+    fontFamily: "'Kalam', cursive",
+    color: "var(--ink)",
   },
 
   voiceBtnOff: {
-    border: "1px solid rgba(255,0,0,0.6)",
-    background: "rgba(255,0,0,0.15)",
-    borderRadius: "6px",
-    padding: "6px 12px",
+    border: "1.5px solid var(--sketch-red)",
+    background: "rgba(220,38,38,0.08)",
+    borderRadius: "3px",
+    padding: "5px 10px",
     cursor: "pointer",
-    transition: "all 0.2s",
+    boxShadow: "2px 2px 0 var(--sketch-red)",
+    transition: "transform 0.1s",
+    fontFamily: "'Kalam', cursive",
+    color: "var(--sketch-red)",
   },
 
   drawBtn: {
-    border: "1px solid rgba(255,255,255,0.4)",
-    background: "rgba(255,255,255,0.1)",
-    borderRadius: "6px",
-    padding: "6px 10px",
+    border: "1.5px solid var(--sketch-border)",
+    background: "var(--paper)",
+    borderRadius: "3px",
+    padding: "5px 9px",
     cursor: "pointer",
-    fontSize: "14px",
-    transition: "all 0.2s",
+    fontSize: "0.9rem",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
+    transition: "transform 0.1s",
   },
 
   micSlash: {
     position: "absolute",
     top: "-2px",
     left: "6px",
-    color: "red",
+    color: "var(--sketch-red)",
     fontWeight: "800",
     fontSize: "18px",
   },
 
   leaveBtn: {
-    background: "linear-gradient(135deg,#ef4444,#dc2626)",
-    border: "none",
-    borderRadius: "6px",
-    padding: "6px 12px",
-    color: "white",
+    background: "var(--ink)",
+    border: "1.5px solid var(--sketch-border)",
+    borderRadius: "3px",
+    padding: "5px 12px",
+    color: "var(--paper)",
     cursor: "pointer",
-    fontWeight: "600",
-    transition: "all 0.2s",
-    fontSize: "14px",
+    fontFamily: "'Kalam', cursive",
+    fontWeight: "700",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
+    transition: "transform 0.1s, box-shadow 0.1s",
+    fontSize: "0.9rem",
   },
 
   rightPanel: {
-    width: "340px",
+    width: "320px",
     margin: "10px",
-    border: "1.5px solid rgba(255,255,255,0.25)",
-    borderRadius: "14px",
+    border: "2px solid var(--sketch-border)",
+    borderRadius: "3px",
     display: "flex",
     flexDirection: "column",
     height: "calc(100vh - 20px)",
     overflow: "hidden",
+    boxShadow: "4px 4px 0 var(--sketch-border)",
+    background: "var(--paper-dark)",
   },
 
   tabs: {
     display: "flex",
-    gap: "6px",
-    padding: "10px",
+    gap: "4px",
+    padding: "8px",
     flexShrink: 0,
+    borderBottom: "2px solid var(--sketch-border)",
+    background: "var(--paper-darker)",
   },
 
   tab: {
     flex: 1,
-    padding: "8px",
-    background: "#020817",
-    borderRadius: "8px",
-    border: "1px solid #0c0d0dff",
+    padding: "7px 4px",
+    background: "var(--paper)",
+    borderRadius: "3px",
+    border: "1.5px solid var(--sketch-border)",
     cursor: "pointer",
-    fontSize: "12px",
-    transition: "all 0.2s",
+    fontFamily: "'Kalam', cursive",
+    fontSize: "0.75rem",
+    color: "var(--ink-muted)",
+    transition: "background 0.15s",
   },
 
   activeTab: {
     flex: 1,
-    padding: "8px",
-    background: "#ebeff1ff",
-    color: "#020817",
-    borderRadius: "8px",
-    fontWeight: "600",
-    fontSize: "12px",
-    border: "none",
+    padding: "7px 4px",
+    background: "var(--ink)",
+    color: "var(--paper)",
+    borderRadius: "3px",
+    fontFamily: "'Kalam', cursive",
+    fontWeight: "700",
+    fontSize: "0.75rem",
+    border: "1.5px solid var(--sketch-border)",
     cursor: "pointer",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
   },
 
   tabContent: {
     flex: 1,
-    padding: "12px",
+    padding: "10px",
     overflow: "auto",
   },
 };
@@ -577,6 +614,7 @@ const chatStyles = {
     flexDirection: "column",
     height: "100%",
     maxHeight: "100%",
+    fontFamily: "'Kalam', cursive",
   },
 
   messages: {
@@ -584,38 +622,42 @@ const chatStyles = {
     overflowY: "auto",
     display: "flex",
     flexDirection: "column",
-    gap: "10px",
-    paddingRight: "5px",
-    marginBottom: "10px",
+    gap: "8px",
+    paddingRight: "4px",
+    marginBottom: "8px",
     minHeight: 0,
   },
 
   messageCard: {
-    background: "rgba(255,255,255,0.06)",
-    border: "1px solid rgba(255,255,255,0.15)",
-    borderRadius: "10px",
+    background: "var(--paper)",
+    border: "1.5px solid var(--sketch-border)",
+    borderRadius: "3px",
     padding: "8px 10px 18px 10px",
     position: "relative",
     flexShrink: 0,
+    boxShadow: "2px 2px 0 var(--sketch-border)",
   },
 
   userName: {
-    fontWeight: "600",
-    fontSize: "13px",
-    marginBottom: "4px",
-    color: "#60a5fa",
+    fontFamily: "'Caveat', cursive",
+    fontWeight: "700",
+    fontSize: "0.9rem",
+    marginBottom: "3px",
+    color: "var(--ink)",
   },
 
   messageText: {
-    marginBottom: "6px",
-    fontSize: "14px",
+    marginBottom: "4px",
+    fontSize: "0.9rem",
     lineHeight: "1.4",
     wordWrap: "break-word",
+    color: "var(--ink-light)",
   },
 
   time: {
-    fontSize: "11px",
-    color: "#9ca3af",
+    fontFamily: "'Kalam', cursive",
+    fontSize: "0.7rem",
+    color: "var(--ink-faint)",
     position: "absolute",
     bottom: "4px",
     right: "8px",
@@ -624,31 +666,33 @@ const chatStyles = {
   inputBox: {
     display: "flex",
     gap: "6px",
-    borderTop: "1px solid rgba(255,255,255,0.2)",
-    paddingTop: "10px",
+    borderTop: "2px solid var(--sketch-border)",
+    paddingTop: "8px",
     flexShrink: 0,
   },
 
   input: {
     flex: 1,
-    padding: "8px",
-    borderRadius: "8px",
-    border: "1px solid rgba(255,255,255,0.3)",
-    background: "rgba(255,255,255,0.05)",
-    color: "white",
-    fontSize: "14px",
+    padding: "8px 10px",
+    borderRadius: "3px",
+    border: "1.5px solid var(--sketch-border)",
+    background: "var(--paper)",
+    color: "var(--ink)",
+    fontFamily: "'Kalam', cursive",
+    fontSize: "0.9rem",
     outline: "none",
   },
 
   sendBtn: {
     padding: "8px 12px",
-    background: "#2563eb",
-    color: "white",
-    borderRadius: "8px",
-    border: "none",
+    background: "var(--ink)",
+    color: "var(--paper)",
+    borderRadius: "3px",
+    border: "1.5px solid var(--sketch-border)",
     cursor: "pointer",
-    fontSize: "16px",
-    transition: "all 0.2s",
+    fontSize: "1rem",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
+    transition: "transform 0.1s",
   },
 };
 
@@ -657,37 +701,43 @@ const memberStyles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "12px 8px",
-    borderBottom: "1px solid rgba(255,255,255,0.1)",
-    transition: "background 0.2s",
+    padding: "10px 6px",
+    borderBottom: "1.5px dashed var(--sketch-border)",
+    transition: "background 0.15s",
+    fontFamily: "'Kalam', cursive",
   },
 
   userInfo: {
     display: "flex",
     alignItems: "center",
-    gap: "10px",
+    gap: "8px",
   },
 
   avatar: {
-    width: "32px",
-    height: "32px",
+    width: "30px",
+    height: "30px",
     borderRadius: "50%",
-    background: "linear-gradient(135deg, #3b82f6, #8b5cf6)",
+    background: "var(--ink)",
+    border: "1.5px solid var(--sketch-border)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: "'Caveat', cursive",
     fontWeight: "700",
-    fontSize: "14px",
-    color: "white",
+    fontSize: "0.9rem",
+    color: "var(--paper)",
+    boxShadow: "2px 2px 0 var(--sketch-border)",
   },
 
   name: {
-    fontSize: "14px",
-    fontWeight: "500",
+    fontFamily: "'Kalam', cursive",
+    fontSize: "0.9rem",
+    fontWeight: "600",
+    color: "var(--ink)",
   },
 
   actions: {
     display: "flex",
-    gap: "8px",
+    gap: "6px",
   },
 };

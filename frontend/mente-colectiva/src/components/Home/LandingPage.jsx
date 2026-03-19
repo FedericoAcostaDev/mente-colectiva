@@ -34,77 +34,92 @@ const ShimmerLine = () => (
 );
 
 const AnimatedWave = () => (
-  <div className="wave-container" style={{ animation: 'fade-in 1s ease-out' }}>
+  <div className="wave-container">
     <svg
       className="wave-svg"
-      viewBox="0 0 1000 200"
+      viewBox="0 0 1000 160"
       preserveAspectRatio="xMidYMid slice"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
-        <linearGradient id="waveGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgb(96, 165, 250)" />
-          <stop offset="50%" stopColor="rgb(168, 85, 247)" />
-          <stop offset="100%" stopColor="rgb(217, 70, 239)" />
+        {/* Teal fill gradient */}
+        <linearGradient id="tealFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#5b9ea0" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="#5b9ea0" stopOpacity="0.25" />
         </linearGradient>
-        <linearGradient id="waveGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgb(168, 85, 247)" />
-          <stop offset="50%" stopColor="rgb(217, 70, 239)" />
-          <stop offset="100%" stopColor="rgb(96, 165, 250)" />
-        </linearGradient>
-        <linearGradient id="waveGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgb(217, 70, 239)" />
-          <stop offset="50%" stopColor="rgb(96, 165, 250)" />
-          <stop offset="100%" stopColor="rgb(168, 85, 247)" />
+        {/* Light grey fill for second layer */}
+        <linearGradient id="greyFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#c8c8c8" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#c8c8c8" stopOpacity="0.1" />
         </linearGradient>
       </defs>
-      
+
+      {/* Graph paper grid lines — vertical */}
+      {[0,100,200,300,400,500,600,700,800,900,1000].map(x => (
+        <line key={x} x1={x} y1="0" x2={x} y2="160"
+          stroke="#5b9ea0" strokeWidth="0.5" strokeOpacity="0.25" />
+      ))}
+      {/* Graph paper grid lines — horizontal */}
+      {[0,40,80,120,160].map(y => (
+        <line key={y} x1="0" y1={y} x2="1000" y2={y}
+          stroke="#5b9ea0" strokeWidth="0.5" strokeOpacity="0.25" />
+      ))}
+
+      {/* Axis lines */}
+      <line x1="0" y1="159" x2="1000" y2="159" stroke="#3a3a3a" strokeWidth="1.5" />
+      <line x1="0" y1="0" x2="0" y2="160" stroke="#3a3a3a" strokeWidth="1.5" />
+
+      {/* Tick labels */}
+      {[0,200,400,600,800,1000].map((x, i) => (
+        <text key={x} x={x + 4} y="12"
+          fontFamily="Kalam, cursive" fontSize="11" fill="#777" opacity="0.8">
+          {i * 20}
+        </text>
+      ))}
+
+      {/* Teal filled area — top layer (animated) */}
       <path
-        d="M0,100 Q250,50 500,100 T1000,100 L1000,200 L0,200 Z"
-        fill="url(#waveGradient1)"
-        opacity="0.3"
-        style={{
-          animation: 'wave-oscillate-1 4s ease-in-out infinite',
-          filter: 'drop-shadow(0 0 15px rgba(168, 85, 247, 0.6))',
-        }}
-      />
-      
-      <path
-        d="M0,120 Q250,70 500,120 T1000,120"
-        stroke="url(#waveGradient2)"
-        strokeWidth="2.5"
-        fill="none"
-        strokeLinecap="round"
-        style={{
-          animation: 'wave-oscillate-2 5s ease-in-out infinite',
-          filter: 'drop-shadow(0 0 12px rgba(96, 165, 250, 0.5))',
-        }}
-      />
-      
-      <path
-        d="M0,80 Q250,30 500,80 T1000,80"
-        stroke="url(#waveGradient1)"
-        strokeWidth="3"
-        fill="none"
-        strokeLinecap="round"
-        style={{
-          animation: 'wave-oscillate-1 3.5s ease-in-out infinite',
-          filter: 'drop-shadow(0 0 18px rgba(168, 85, 247, 0.8)) drop-shadow(0 0 8px rgba(96, 165, 250, 0.6))',
-        }}
+        d="M0,30 L120,55 L200,20 L320,60 L440,25 L560,50 L680,15 L800,45 L900,30 L1000,10 L1000,0 L0,0 Z"
+        fill="url(#tealFill)"
+        style={{ animation: 'chartShift 6s ease-in-out infinite alternate' }}
       />
 
+      {/* Grey filled area — main jagged chart */}
       <path
-        d="M0,140 Q250,110 500,140 T1000,140"
-        stroke="url(#waveGradient3)"
-        strokeWidth="1.5"
-        fill="none"
-        strokeLinecap="round"
-        opacity="0.5"
-        style={{
-          animation: 'wave-oscillate-3 6s ease-in-out infinite',
-          filter: 'drop-shadow(0 0 10px rgba(217, 70, 239, 0.4))',
-        }}
+        d="M0,80 L120,130 L200,60 L320,110 L440,50 L560,100 L680,70 L800,120 L900,55 L1000,90 L1000,160 L0,160 Z"
+        fill="url(#greyFill)"
+        style={{ animation: 'chartShift 8s ease-in-out infinite alternate-reverse' }}
       />
+
+      {/* Main jagged line — dark */}
+      <polyline
+        points="0,80 120,130 200,60 320,110 440,50 560,100 680,70 800,120 900,55 1000,90"
+        fill="none"
+        stroke="#3a3a3a"
+        strokeWidth="2"
+        strokeLinejoin="miter"
+        style={{ animation: 'chartShift 8s ease-in-out infinite alternate-reverse' }}
+      />
+
+      {/* Secondary lighter line */}
+      <polyline
+        points="0,100 120,145 200,85 320,125 440,75 560,115 680,90 800,135 900,75 1000,110"
+        fill="none"
+        stroke="#aaaaaa"
+        strokeWidth="1.5"
+        strokeLinejoin="miter"
+        strokeDasharray="6 3"
+        opacity="0.6"
+        style={{ animation: 'chartShift 10s ease-in-out infinite alternate' }}
+      />
+
+      {/* Data point dots on main line */}
+      {[[0,80],[120,130],[200,60],[320,110],[440,50],[560,100],[680,70],[800,120],[900,55],[1000,90]].map(([x,y], i) => (
+        <circle key={i} cx={x} cy={y} r="3.5"
+          fill="#fff" stroke="#3a3a3a" strokeWidth="1.5"
+          style={{ animation: `chartShift 8s ease-in-out infinite alternate-reverse` }}
+        />
+      ))}
     </svg>
   </div>
 );
@@ -195,6 +210,7 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="hero-section">
+        <AnimatedWave />
         <div className="hero-content">
           <div className="hero-tag" style={{ animation: 'slide-up 0.8s ease-out 0.1s both' }}>
             <span>&gt; Real-time collaboration redefined</span>
@@ -208,8 +224,6 @@ export default function LandingPage() {
           <p className="hero-description" style={{ animation: 'slide-up 0.8s ease-out 0.3s both' }}>
             The collaborative whiteboard that empowers creativity. Real-time sync, beautiful tools, and a seamless experience for teams that dream big.
           </p>
-
-          <AnimatedWave />
 
           <div className="hero-cta" style={{ animation: 'slide-up 0.8s ease-out 0.4s both' }}>
             {hasToken ? (

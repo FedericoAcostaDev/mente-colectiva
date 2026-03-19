@@ -112,16 +112,16 @@ export default function HistoryPage() {
     <>
       {
         loading ?
-          <div className=" w-screen h-screen flex justify-center items-center  gap-2">
+          <div className=" w-screen h-screen flex justify-center items-center gap-2" style={{ background: 'var(--paper)', fontFamily: "'Kalam', cursive", color: 'var(--ink)' }}>
              <Circles
-        height="70"
-        width="70"
-        color="#fff"
+        height="50"
+        width="50"
+        color="var(--ink)"
         ariaLabel="circles-loading"
         wrapperStyle={{}}
         wrapperClass=""
         visible={loading}
-        /> <div className="text-2xl"> Fetching History!! </div>
+        /> <div style={{ fontSize: '1.4rem', fontFamily: "'Caveat', cursive", fontWeight: '700' }}> Fetching History... </div>
           </div>
           :
           <div className="history-page-wrapper">
@@ -142,15 +142,39 @@ export default function HistoryPage() {
                   <p className="history-subtitle">View and manage your whiteboard sessions</p>
                 </div>
 
-                <div className="flex gap-4" style={{ padding: "20px 30px" }}>
+                <div className="flex gap-3" style={{ padding: "16px 24px" }}>
                   <button
-                    className={`relative after:content-[''] after:absolute after:left-0 after:bottom-0  after:h-1 after:bg-purple-700  after:transition-all after:duration-300 after:delay-150  ${createdHistory ? 'after:w-full' : 'after:w-0'} `} style={{ padding: "10px 30px" }}
+                    style={{
+                      padding: "8px 24px",
+                      fontFamily: "'Kalam', cursive",
+                      fontWeight: "700",
+                      fontSize: "0.95rem",
+                      background: createdHistory ? "var(--ink)" : "var(--paper)",
+                      color: createdHistory ? "var(--paper)" : "var(--ink-muted)",
+                      border: "2px solid var(--sketch-border)",
+                      borderRadius: "3px",
+                      cursor: "pointer",
+                      boxShadow: createdHistory ? "3px 3px 0 var(--sketch-border)" : "none",
+                      transition: "all 0.15s",
+                    }}
                     onClick={() => setCreatedHistory(true)}
                   >
                     Created by Me
                   </button>
                   <button
-                    className={`relative after:content-[''] after:absolute after:left-0 after:bottom-0  after:h-1 after:bg-purple-700  after:transition-all after:duration-300 after:delay-150  ${!createdHistory ? 'after:w-full' : 'after:w-0'} `} style={{ padding: "10px 30px" }}
+                    style={{
+                      padding: "8px 24px",
+                      fontFamily: "'Kalam', cursive",
+                      fontWeight: "700",
+                      fontSize: "0.95rem",
+                      background: !createdHistory ? "var(--ink)" : "var(--paper)",
+                      color: !createdHistory ? "var(--paper)" : "var(--ink-muted)",
+                      border: "2px solid var(--sketch-border)",
+                      borderRadius: "3px",
+                      cursor: "pointer",
+                      boxShadow: !createdHistory ? "3px 3px 0 var(--sketch-border)" : "none",
+                      transition: "all 0.15s",
+                    }}
                     onClick={() => setCreatedHistory(false)}
                   >
                     Joined by Me
